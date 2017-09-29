@@ -103,3 +103,20 @@ def test_csv_to_table():
     output.should.equal(expected)
     output = csv_to_table(StringIO(csv_pounds), '#')
     output.should.equal(expected)
+    
+    
+def test_column_with_quote():
+    csv_with_quote = """
+    hello, this is row 1, foo1
+    world, this is row 2, foo2
+    goodbye, "this, is row 3", foo3
+    """.strip()
+    
+    expected = [['hello', 'this is row 1', 'foo1'], 
+                ['world', 'this is row 2', 'foo2'],
+                ['goodbye', 'this, is row 3', 'foo3']]
+    
+    output = csv_to_table(StringIO(csv_with_quote), ',')
+    output.should.equal(expected)
+    
+    
